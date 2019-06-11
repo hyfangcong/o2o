@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imooc.cong.o2o.dao.ShopCategoryDao">
+    <select id="queryShopCategorys" resultType="com.imooc.cong.o2o.entity.ShopCategory">
+        select shop_category_id, shop_category_name from tb_shop_category
+    </select>
+</mapper>
