@@ -15,9 +15,9 @@ public class PathUtil {
         String os = System.getProperty("os.name");
         String basePath = "";
         if(os.toLowerCase().startsWith("win")){
-            basePath = "D:/project/o2o/img";
+            basePath = "D:/project/o2o/img/";
         }else{
-            basePath = "/home/project/o2o/img";
+            basePath = "/home/project/o2o/img/";
         }
         return basePath.replace("/", separator);
     }

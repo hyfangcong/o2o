@@ -9,14 +9,14 @@
         ,priority, enable_status, email)
         values
         (#{shopName}, #{ownerId}, #{areaId}, #{shopCategoryId}, #{phone}, #{shopImg}, #{shopDesc}, #{createTime}
-        , #{lastEditTime}, #{priority}, #{enableStatus}, #(email))
+        , #{lastEditTime}, #{priority}, #{enableStatus}, #{email})
     </insert>
 
     <update id="updateShop" parameterType="com.imooc.cong.o2o.entity.Shop">
         update tb_shop
         <set>
             <if test="shopName != null">shop_name=#{shopName},</if>
-            <if test="areaId != null">shop_area_id=#{areaId},</if>
+            <if test="areaId != null">area_id=#{areaId},</if>
             <if test="shopCategoryId != null"> shop_category_id=#{shopCategoryId},</if>
             <if test="phone != null">phone = #{phone},</if>
             <if test="shopImg != null">shop_img = #{shopImg},</if>

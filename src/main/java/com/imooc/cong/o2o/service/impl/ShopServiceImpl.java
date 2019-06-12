@@ -38,26 +38,23 @@ public class ShopServiceImpl implements ShopService {
         }
         try{
             //给shop赋初始值
+            shop.setOwnerId(1L); //测试账号
             shop.setEnableStatus(0);
             shop.setCreateTime(new Date());
             shop.setLastEditTime(new Date());
             int effectNum = shopDao.insertShop(shop);
             if(effectNum <= 0){
                 throw new ShopOperationException("店铺创建失败");
-            }else{
-                if(shopImg != null) {
-                    //存储图片
-                    try {
-                        addShopImg(shop, shopImg);
-                    } catch (Exception e) {
-                        throw new ShopOperationException("addShopImg error: " + e.getMessage());
-                    }
-                    //更新店铺的图片地址
-                   effectNum = shopDao.updateShop(shop);
-                    if(effectNum <= 0){
-                        throw new ShopOperationException("更新图片地址失败");
-                    }
-                }
+            }
+
+            /**
+             * 先对店铺进行插入，然后拿到shopId后再存储图片
+             * 图片的存储路径中需要要用到shopId
+             */
+            addShopImg(shop, shopImg);
+            effectNum = shopDao.updateShop(shop);
+            if(effectNum <= 0){
+                throw new ShopOperationException("图片存储失败");
             }
         }
         catch (Exception e){

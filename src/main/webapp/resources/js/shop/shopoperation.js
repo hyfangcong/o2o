@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    var initUrl = '/o2o/shopadmin/getshopinitinfo';
-    var registerShopUrl = '/o2o/shopadmin/management';
+    var initUrl = '/o2o/shop/getshopinitinfo';
+    var registerShopUrl = '/o2o/shop/doregister';
     var shopCategoryHtml = ""
     var areaCategoryHtml = ""
     $.getJSON(initUrl, function (data) {
@@ -17,7 +17,8 @@ $(document).ready(function () {
     })
 
     $('#submit').click(function () {
-        var formData = {
+        var formData = new FormData();
+        var shop = {
             "shopName" : $('#shopName').val(),
             "phone" : $('#phone').val(),
             "email" : $('#email').val(),
@@ -25,15 +26,28 @@ $(document).ready(function () {
             "areaId" : $('#shopArea').val()
         }
 
+        formData.append("shopStr", JSON.stringify(shop))
+        formData.append("shopImg", $('#smallImage')[0].files[0])
+
         $.ajax({
+            type:'post',
             url:registerShopUrl,
             data: formData,
-            async:true,
-            type:'post',
+            dataType:'json',
+            contentType:false,
+            processData:false,
             success:function (data) {
-                alert('test')
-            },
+                if(false){
+                    alert('success')
+                }else{
+                    alert(data.msg)
+                }
+            }
         })
+
+        // $.post(registerShopUrl, formData, function(data){
+        //     alert(data.msg)
+        // })
     })
 })
 

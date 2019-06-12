@@ -52,7 +52,7 @@ public class ImageUtil {
      * @return
      */
     private static String getFileExtension(CommonsMultipartFile cFile) {
-        String fileName = cFile.getName();
+        String fileName = cFile.getOriginalFilename();
         return fileName.substring(fileName.lastIndexOf("."));
     }
 
