@@ -1,7 +1,9 @@
 package com.imooc.cong.o2o.web.shopadmin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -17,8 +19,45 @@ public class ShopPageController {
      *
      * @return shop/register.html
      */
-    @RequestMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(){
         return "shop/register";
+    }
+
+
+    /**
+     * 修改店铺信息
+     * @return shop/edit.html
+     */
+    @RequestMapping(value = "/edit" , method = RequestMethod.GET)
+    public String edit(){
+        return "shop/edit";
+    }
+
+    /**
+     * 获取店铺列表
+     * @return
+     */
+    @RequestMapping(value = "/shoplist", method = RequestMethod.GET)
+    public String shopList(){
+        return "shop/shoplist";
+    }
+
+    /**
+     * 管理店铺页面
+     * @return
+     */
+    @RequestMapping(value = "shopmanage", method = RequestMethod.GET)
+    public String shopManage(){
+        return "shop/shopmanage";
+    }
+
+    /**
+     * 商品类别管理页面
+     * @return
+     */
+    @RequestMapping(value = "productcategorymanage", method = RequestMethod.GET)
+    public String productCategoryManage(){
+        return "shop/productcategorymanage";
     }
 }

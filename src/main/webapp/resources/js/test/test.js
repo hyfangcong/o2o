@@ -58,48 +58,59 @@ $(function () {
     }
 
     $('#submit').click(function () {
-        var formData = new FormData();
-        var shop = {
-            "shopName" : $('#shopName').val(),
-            "phone" : $('#phone').val(),
-            "email" : $('#email').val(),
-            "shopCategoryId" : $('#shopCategory').val(),
-            "areaId" : $('#shopArea').val()
-        }
-
-        var verifyCode = $('#kaptcha').val()
-        if(!verifyCode){
-            alert("请输入验证码")
-            return
-        }
-        if(isEdit){
-            shop['shopId'] = shopId
-        }
-        formData.append("verifyCode", verifyCode)
-        formData.append("shopStr", JSON.stringify(shop))
-        formData.append("shopImg", $('#smallImage')[0].files[0])
-
-        $.ajax({
-            type:'post',
-            url:(isEdit? editShopUrl : registerShopUrl),
-            data: formData,
-            dataType:'json',
-            contentType:false,
-            processData:false,
-            success:function (data) {
-                if(false){
-                    alert('success')
-                }else{
-                    alert(data.msg)
-                }
+        $('.item-content').map(function (index,value) {
+            var phone = $(value).find('.phone').val()
+            if(phone){
+                alert(phone)
             }
         })
+    })
+
+    // $('#submit').click(function () {
+    //     var formData = new FormData();
+    //     var shop = {
+    //         "shopName" : $('#shopName').val(),
+    //         "phone" : $('#phone').val(),
+    //         "email" : $('#email').val(),
+    //         "shopCategoryId" : $('#shopCategory').val(),
+    //         "areaId" : $('#shopArea').val()
+    //     }
+    //
+    //     var verifyCode = $('#kaptcha').val()
+    //     if(!verifyCode){
+    //         alert("请输入验证码")
+    //         return
+    //     }
+    //     if(isEdit){
+    //         shop['shopId'] = shopId
+    //     }
+    //     formData.append("verifyCode", verifyCode)
+    //     formData.append("shopStr", JSON.stringify(shop))
+    //     formData.append("shopImg", $('#smallImage')[0].files[0])
+    //
+    //     $.ajax({
+    //         type:'post',
+    //         url:(isEdit? editShopUrl : registerShopUrl),
+    //         data: formData,
+    //         dataType:'json',
+    //         contentType:false,
+    //         processData:false,
+    //         success:function (data) {
+    //             if(false){
+    //                 alert('success')
+    //             }else{
+    //                 alert(data.msg)
+    //             }
+    //         }
+    //     })
 
         // $.post(registerShopUrl, formData, function(data){
         //     alert(data.msg)
         // })
-    })
+    // })
 })
+
+
 
 
 

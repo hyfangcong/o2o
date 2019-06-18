@@ -3,6 +3,7 @@ package com.imooc.cong.o2o.service.impl;
 import com.imooc.cong.o2o.dao.ShopDao;
 import com.imooc.cong.o2o.dto.ShopExecution;
 import com.imooc.cong.o2o.entity.Shop;
+import com.imooc.cong.o2o.entity.ShopCondition;
 import com.imooc.cong.o2o.enums.ShopStateEnum;
 import com.imooc.cong.o2o.exception.ShopOperationException;
 import com.imooc.cong.o2o.service.ShopService;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: fangcong
@@ -61,6 +63,67 @@ public class ShopServiceImpl implements ShopService {
             throw new ShopOperationException("add shop error: " + e.getMessage());
         }
         return new ShopExecution(ShopStateEnum.CHECK, shop);
+    }
+
+    @Override
+    public ShopExecution getByShopId(int shopId) {
+        ShopExecution shopExecution = new ShopExecution();
+        Shop shop = shopDao.queryShopById(shopId);
+        if(shop == null){
+            shopExecution.setState(ShopStateEnum.NULL_SHOP.getState());
+            shopExecution.setStateInfo(ShopStateEnum.NULL_SHOP.getStateInfo());
+        }else{
+            shopExecution.setState(ShopStateEnum.SUCCESS.getState());
+            shopExecution.setStateInfo(ShopStateEnum.SUCCESS.getStateInfo());
+            shopExecution.setShop(shop);
+        }
+        return shopExecution;
+    }
+
+    /**
+     * 修改店铺
+     * @param shop shopId is not null
+     * @param shopImg
+     * @return
+     */
+    @Override
+    @Transactional
+    public ShopExecution modifyShop(Shop shop, CommonsMultipartFile shopImg) {
+        if(shop == null){
+            return new ShopExecution(ShopStateEnum.NULL_SHOP);
+        }
+        try{
+            int effectNum;
+            if (shopImg != null) {
+                addShopImg(shop, shopImg);
+            }
+//            shop.setOwnerId(1L); //这里应该是从session中获取的
+            shop.setLastEditTime(new Date());
+             effectNum = shopDao.updateShop(shop);
+            if(effectNum <= 0){
+                throw new ShopOperationException("店铺修改失败");
+            }
+        }
+        catch (Exception e){
+            throw new ShopOperationException("add shop error: " + e.getMessage());
+        }
+        return new ShopExecution(ShopStateEnum.SUCCESS, shop);
+    }
+
+
+    @Override
+    public ShopExecution getShopList(ShopCondition shopCondition, int pageIndex, int pageSize) {
+        ShopExecution shopExecution = new ShopExecution();
+        List<Shop> shopList = shopDao.queryShopList(shopCondition, pageIndex, pageSize);
+        shopExecution.setState(ShopStateEnum.SUCCESS.getState());
+        shopExecution.setStateInfo("操作成功");
+        shopExecution.setShopList(shopList);
+        return shopExecution;
+    }
+
+    @Override
+    public int shopCount(ShopCondition shopCondition) {
+        return shopDao.shopCount(shopCondition);
     }
 
     /**
