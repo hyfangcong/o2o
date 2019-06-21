@@ -60,4 +60,22 @@ public class ShopPageController {
     public String productCategoryManage(){
         return "shop/productcategorymanage";
     }
+
+    /**
+     * 商品管理页面
+     * @return
+     */
+    @RequestMapping(value = "productmanage", method = RequestMethod.GET)
+    public String productmanage(){
+        return "shop/productmanage";
+    }
+
+    /**
+     * 商品编辑页面
+     * @return
+     */
+    @RequestMapping(value = "productedit", method = RequestMethod.GET)
+    public String productedit(){
+        return "shop/productedit";
+    }
 }

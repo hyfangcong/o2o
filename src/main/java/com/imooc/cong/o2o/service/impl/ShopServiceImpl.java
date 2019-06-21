@@ -7,8 +7,8 @@ import com.imooc.cong.o2o.entity.ShopCondition;
 import com.imooc.cong.o2o.enums.ShopStateEnum;
 import com.imooc.cong.o2o.exception.ShopOperationException;
 import com.imooc.cong.o2o.service.ShopService;
+import com.imooc.cong.o2o.util.FileUtil;
 import com.imooc.cong.o2o.util.ImageUtil;
-import com.imooc.cong.o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -133,7 +133,7 @@ public class ShopServiceImpl implements ShopService {
      */
     private void addShopImg(Shop shop, CommonsMultipartFile shopImg) {
         //获取图片目录的相对路径
-        String dest = PathUtil.getShopImgPath(shop.getShopId());
+        String dest = FileUtil.getShopImgPath(shop.getShopId());
         String shopImgAddr = ImageUtil.generateThumbnail(shopImg, dest);
         shop.setShopImg(shopImgAddr);
     }

@@ -13,6 +13,7 @@ public class Product implements Serializable{
 	private Long productId;
 	private String productName;
 	private String productDesc;
+	private Long productCategoryId;
 	private String imgAddr;// 简略图
 	private String normalPrice;
 	private String promotionPrice;
@@ -22,6 +23,7 @@ public class Product implements Serializable{
 	private Integer enableStatus;
 	private Integer point;
 
+	//详情图
 	private List<ProductImg> productImgList;
 	private ProductCategory productCategory;
 	private Shop shop;
@@ -138,4 +140,11 @@ public class Product implements Serializable{
 		this.shop = shop;
 	}
 
+	public Long getProductCategoryId() {
+		return productCategoryId;
+	}
+
+	public void setProductCategoryId(Long productCategoryId) {
+		this.productCategoryId = productCategoryId;
+	}
 }
